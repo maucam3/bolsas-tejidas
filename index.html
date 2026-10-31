@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trama · Bolsas tejidas a mano</title>
+  <meta name="description" content="Bolsas tejidas a mano, diseñadas por ti: elige modelo, hilo, colores, correa y accesorios.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="nav">
+    <div class="wrap nav-in">
+      <a href="#" class="logo" aria-label="Trama, inicio">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M5 12c7 3 15 3 22 0M4 18c8 3 16 3 24 0M10 5c-3 7-3 15 0 22M16 3v26M22 5c3 7 3 15 0 22" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+        <span>Trama</span>
+      </a>
+      <nav class="links">
+        <a href="#disenos">Diseños</a>
+        <a href="#taller">Personaliza</a>
+        <a href="#proceso">Proceso</a>
+      </nav>
+      <button class="cart-btn" id="cartOpen" aria-label="Abrir carrito">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12l-1 12H7L6 8Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 8V6a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="wrap hero-in">
+        <div class="hero-copy">
+          <p class="eyebrow">Hecho a mano · Pieza única</p>
+          <h1>Cada puntada,<br><em>a tu manera.</em></h1>
+          <p class="lead">Bolsas tejidas una a una por artesanas. Tú eliges el modelo, el hilo, los colores, la correa y cada detalle. Nosotras la tejemos.</p>
+          <div class="hero-cta">
+            <a href="#taller" class="btn btn-primary">Diseña la tuya</a>
+            <a href="#disenos" class="btn btn-ghost">Ver diseños</a>
+          </div>
+          <ul class="hero-facts">
+            <li><strong>+20&nbsp;h</strong><span>de tejido por bolsa</span></li>
+            <li><strong>14</strong><span>colores de hilo</span></li>
+            <li><strong>∞</strong><span>combinaciones</span></li>
+          </ul>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-blob"></div>
+          <span class="yarn y1"></span><span class="yarn y2"></span><span class="yarn y3"></span>
+          <div class="hero-bag" id="heroBag"></div>
+          <p class="hero-tag" id="heroTag"></p>
+        </div>
+      </div>
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee-in">
+          <span>Algodón</span><span>✺</span><span>Yute</span><span>✺</span><span>Macramé</span><span>✺</span><span>Trapillo</span><span>✺</span><span>Rafia</span><span>✺</span><span>Tejido a mano</span><span>✺</span>
+          <span>Algodón</span><span>✺</span><span>Yute</span><span>✺</span><span>Macramé</span><span>✺</span><span>Trapillo</span><span>✺</span><span>Rafia</span><span>✺</span><span>Tejido a mano</span><span>✺</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRESETS -->
+    <section class="section" id="disenos">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Colección</p>
+          <h2>Diseños para empezar</h2>
+          <p class="muted">Elige uno tal cual o úsalo como punto de partida y cámbiale lo que quieras.</p>
+        </div>
+        <div class="presets" id="presets"></div>
+      </div>
+    </section>
+
+    <!-- CONFIGURADOR -->
+    <section class="section taller" id="taller">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">El taller</p>
+          <h2>Diseña tu bolsa</h2>
+          <p class="muted">Cada cambio se teje al instante en la vista previa.</p>
+        </div>
+        <div class="config">
+          <aside class="preview">
+            <div class="preview-card">
+              <div class="preview-top">
+                <span class="design-name" id="designName">Tu diseño</span>
+                <button class="icon-btn" id="shareBtn" title="Copiar enlace de este diseño" aria-label="Compartir diseño">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 14a4 4 0 0 0 6 0l3-3a4 4 0 0 0-6-6l-1 1M14 10a4 4 0 0 0-6 0l-3 3a4 4 0 0 0 6 6l1-1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                </button>
+              </div>
+              <div class="stage" id="stage"></div>
+              <div class="preview-meta">
+                <div>
+                  <span class="price" id="price">$0</span>
+                  <span class="days" id="days"></span>
+                </div>
+                <button class="btn btn-surprise" id="surprise">✨ Sorpréndeme</button>
+              </div>
+              <ul class="summary" id="summary"></ul>
+              <button class="btn btn-primary btn-block" id="addCart">Añadir al carrito</button>
+            </div>
+          </aside>
+
+          <div class="steps">
+            <div class="step">
+              <h3><span>1</span> Modelo</h3>
+              <div class="opts opts-thumbs" data-group="model" id="optModel"></div>
+            </div>
+            <div class="step">
+              <h3><span>2</span> Tipo de hilo</h3>
+              <div class="opts opts-yarn" data-group="yarn" id="optYarn"></div>
+            </div>
+            <div class="step">
+              <h3><span>3</span> Colores de hilo</h3>
+              <p class="label">Color principal <b id="colorName"></b></p>
+              <div class="swatches" data-group="color" id="optColor"></div>
+              <p class="label">Color de detalle <b id="color2Name"></b></p>
+              <div class="swatches" data-group="color2" id="optColor2"></div>
+            </div>
+            <div class="step">
+              <h3><span>4</span> Patrón del tejido</h3>
+              <div class="opts opts-chips" data-group="pattern" id="optPattern"></div>
+            </div>
+            <div class="step">
+              <h3><span>5</span> Correa</h3>
+              <div class="opts opts-thumbs" data-group="strap" id="optStrap"></div>
+            </div>
+            <div class="step">
+              <h3><span>6</span> Accesorios</h3>
+              <div class="opts opts-acc" data-group="acc" id="optAcc"></div>
+              <label class="monogram">
+                <span>Iniciales bordadas <small>(+$5, hasta 3 letras)</small></span>
+                <input id="monogram" maxlength="3" placeholder="Ej. MC" autocomplete="off">
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESO -->
+    <section class="section" id="proceso">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Del ovillo a tus manos</p>
+          <h2>Así nace tu bolsa</h2>
+        </div>
+        <ol class="process">
+          <li><span class="pn">01</span><h4>Tú la diseñas</h4><p>Combina modelo, hilo, colores y accesorios en el taller.</p></li>
+          <li><span class="pn">02</span><h4>La tejemos</h4><p>Una artesana la teje punto por punto. Ninguna queda igual a otra.</p></li>
+          <li><span class="pn">03</span><h4>La revisamos</h4><p>Revisamos costuras, asas y acabados antes de empacarla.</p></li>
+          <li><span class="pn">04</span><h4>Te llega</h4><p>Empacada en tela reutilizable, con una nota de quien la tejió.</p></li>
+        </ol>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-in">
+      <div class="logo"><span>Trama</span></div>
+      <p class="muted">Bolsas tejidas a mano · Sitio de demostración</p>
+    </div>
+  </footer>
+
+  <!-- Carrito -->
+  <div class="scrim" id="scrim"></div>
+  <aside class="drawer" id="drawer" aria-label="Carrito">
+    <div class="drawer-head">
+      <h3>Tu carrito</h3>
+      <button class="icon-btn" id="cartClose" aria-label="Cerrar carrito">✕</button>
+    </div>
+    <div class="drawer-body" id="cartItems"></div>
+    <div class="drawer-foot">
+      <div class="total"><span>Total</span><strong id="cartTotal">$0</strong></div>
+      <button class="btn btn-primary btn-block" id="checkout">Finalizar pedido</button>
+    </div>
+  </aside>
+
+  <div class="mbar" id="mbar">
+    <button class="mbar-art" id="mbarArt" aria-label="Ver vista previa"></button>
+    <div class="mbar-info"><b id="mbarPrice"></b><span id="mbarName"></span></div>
+    <button class="btn btn-primary btn-sm" id="mbarAdd">Añadir</button>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+  <div class="confetti" id="confetti" aria-hidden="true"></div>
+
+  <script src="bag.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
