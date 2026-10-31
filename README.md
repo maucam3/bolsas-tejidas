@@ -2,6 +2,8 @@
 
 Tienda web de demostración para bolsas tejidas a mano con un configurador en vivo.
 
+**👉 Ver en vivo: <https://maucam3.github.io/bolsas-tejidas/>**
+
 ## Qué incluye
 
 - **Diseños prestablecidos**: seis bolsas de ejemplo que se pueden comprar tal cual o personalizar.
