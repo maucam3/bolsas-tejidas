@@ -1,31 +1,33 @@
-# Trama · Bolsas tejidas a mano
+# Trama · Handwoven bags
 
-Tienda web de demostración para bolsas tejidas a mano con un configurador en vivo.
+Online store for handwoven bags with a live bag configurator.
 
-**👉 Ver en vivo: <https://maucam3.github.io/bolsas-tejidas/>**
+**👉 Live site: <https://maucam3.github.io/bolsas-tejidas/>**
 
-## Qué incluye
+> The store itself is in Spanish.
 
-- **Diseños prestablecidos**: seis bolsas de ejemplo que se pueden comprar tal cual o personalizar.
-- **Taller de diseño**: modelo (tote, balde, media luna, sobre), tipo de hilo (algodón, yute, macramé, trapillo, rafia), 14 colores de hilo, patrón del tejido, correa y accesorios (borla, pompón, dije de concha, botón, flecos, forro) más iniciales bordadas.
-- **Vista previa en SVG** que se dibuja al instante, con lupa para ver la textura del hilo.
-- **Sorpréndeme**: genera un diseño al azar.
-- **Compartir**: copia un enlace con el diseño exacto.
-- **Carrito** guardado en el navegador (el pedido es simulado).
+## Features
 
-## Cómo verlo
+- **Preset designs**: six example bags that can be bought as they are or customized.
+- **Design studio**: bag model (tote, bucket, half-moon, envelope), yarn type (cotton, jute, macramé, t-shirt yarn, raffia), 14 yarn colors, weave pattern, strap and accessories (tassel, pom-pom, shell charm, button, fringe, lining), plus embroidered initials.
+- **Live SVG preview** that redraws instantly, with a magnifier to inspect the yarn texture.
+- **Surprise me**: generates a random design.
+- **Share**: copies a link to the exact design.
+- **Cart** stored in the browser (checkout is simulated).
 
-Es HTML, CSS y JavaScript puro, sin dependencias. Desde esta carpeta:
+## Run locally
+
+Plain HTML, CSS and JavaScript, no dependencies. From this folder:
 
 ```bash
 python -m http.server 5500
 ```
 
-y abre <http://localhost:5500>.
+then open <http://localhost:5500>.
 
-## Archivos
+## Files
 
-- `index.html`: estructura de la página.
-- `styles.css`: estilos y diseño responsive.
-- `bag.js`: catálogo (colores, hilos, correas…) y el dibujo de la bolsa en SVG.
-- `app.js`: configurador, diseños, carrito y animaciones.
+- `index.html`: page structure.
+- `styles.css`: styles and responsive layout.
+- `bag.js`: catalog (colors, yarns, straps…) and the SVG bag renderer.
+- `app.js`: configurator, presets, cart and animations.
