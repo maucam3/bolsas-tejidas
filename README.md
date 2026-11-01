@@ -15,6 +15,14 @@ Online store for handwoven bags with a live bag configurator.
 - **Share**: copies a link to the exact design.
 - **Cart** stored in the browser (checkout is simulated).
 
+## Install as an app
+
+The store is an installable web app (PWA) that also opens offline.
+
+- **Android (Chrome)**: open the link → *Install app* button in the header, or menu ⋮ → *Install app*.
+- **iPhone (Safari)**: open the link → Share button → *Add to Home Screen*.
+- **Desktop (Chrome or Edge)**: install icon in the address bar.
+
 ## Run locally
 
 Plain HTML, CSS and JavaScript, no dependencies. From this folder:

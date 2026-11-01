@@ -259,3 +259,11 @@ h1, h2, h3, h4 { font-family: var(--serif); font-weight: 600; line-height: 1.1; 
   .opts-thumbs { grid-template-columns: repeat(2, 1fr); }
   .opts-yarn, .opts-acc { grid-template-columns: 1fr 1fr; }
 }
+
+/* Botón de instalar la app (solo aparece si el navegador lo permite) */
+.install-btn { white-space: nowrap; }
+.install-btn[hidden] { display: none; }
+@media (max-width: 640px) {
+  .install-btn { margin-left: auto; padding: 8px 12px; font-size: 13px; }
+  .install-btn:not([hidden]) + .cart-btn { margin-left: 0; }
+}
