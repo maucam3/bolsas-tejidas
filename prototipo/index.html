@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trama · Laboratorio de vista previa</title>
+  <meta name="description" content="Prototipo de Trama: vista previa realista de bolsas tejidas recoloreando fotos reales por capas.">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="proto.css?v=5">
+</head>
+<body>
+  <header class="nav">
+    <div class="wrap nav-in">
+      <a href="../" class="logo" aria-label="Trama, ir a la tienda">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M5 12c7 3 15 3 22 0M4 18c8 3 16 3 24 0M10 5c-3 7-3 15 0 22M16 3v26M22 5c3 7 3 15 0 22" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+        <span>Trama</span>
+      </a>
+      <span class="lab-badge">Laboratorio</span>
+      <nav class="links">
+        <a href="#lab">Vista previa</a>
+        <a href="#foto">Tu foto</a>
+        <a href="#como">Cómo funciona</a>
+      </nav>
+      <a class="btn btn-ghost btn-sm back" href="../">← Tienda</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="wrap lab-hero">
+      <p class="eyebrow">Prototipo · Vista previa realista</p>
+      <h1>Tu bolsa, <em>con textura de verdad.</em></h1>
+      <p class="lead">En vez de fotografiar miles de combinaciones, se fotografía cada pieza una sola vez en hilo claro y la página la tiñe del color que elijas, conservando cada puntada, brillo y sombra.</p>
+      <p class="lab-note"><span aria-hidden="true">🧪</span><span><b>Imagen de prueba.</b> Por ahora la bolsa está dibujada por computadora. Cuando lleguen las fotos reales, solo se cambia la imagen y todo lo demás funciona igual.</span></p>
+    </section>
+
+    <!-- CONFIGURADOR -->
+    <section class="section taller lab" id="lab">
+      <div class="wrap config">
+        <aside class="preview">
+          <div class="preview-card">
+            <div class="views" role="tablist" aria-label="Vista">
+              <button role="tab" data-view="front" class="on">Frente</button>
+              <button role="tab" data-view="bottom">Base</button>
+              <button role="tab" data-view="close">De cerca</button>
+            </div>
+            <div class="lab-stage" id="labStage">
+              <canvas id="stage" width="800" height="960" aria-label="Vista previa de la bolsa"></canvas>
+              <span class="stage-tag" id="stageTag">Vista de frente</span>
+              <span class="busy-tag">Tejiendo…</span>
+            </div>
+            <p class="perf" id="perf"></p>
+          </div>
+        </aside>
+
+        <div class="steps">
+          <div class="step">
+            <h3><span>1</span> Tipo de hilo</h3>
+            <div class="opts-chips" id="yarns"></div>
+            <p class="label" id="yarnDesc"></p>
+          </div>
+          <div class="step">
+            <h3><span>2</span> Color del hilo</h3>
+            <p class="label">Color: <b id="colorName"></b></p>
+            <div class="swatches" id="colors"></div>
+          </div>
+          <div class="step">
+            <h3><span>3</span> Correa</h3>
+            <div class="opts-chips" id="straps"></div>
+            <p class="label">Color: <b id="strapColorName"></b></p>
+            <div class="swatches" id="strapColors"></div>
+          </div>
+          <div class="step">
+            <h3><span>4</span> Base</h3>
+            <div class="opts-chips" id="bases"></div>
+            <p class="label">Color: <b id="baseColorName"></b></p>
+            <div class="swatches" id="baseColors"></div>
+          </div>
+          <div class="step">
+            <h3><span>5</span> Accesorios</h3>
+            <div class="opts-chips" id="accs"></div>
+            <p class="label">Color de borla y pompón: <b id="accColorName"></b></p>
+            <div class="swatches" id="accColors"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRUEBA CON TU FOTO -->
+    <section class="section" id="foto">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Pruébalo con una foto real</p>
+          <h2>Cambia el color de una bolsa de verdad</h2>
+          <p class="muted">Sube la foto de una bolsa tejida, de preferencia de color claro y con fondo liso. Toca la bolsa para seleccionarla y elige un color. Tu foto no se sube a ningún lado: todo pasa en tu dispositivo.</p>
+        </div>
+        <div class="config try">
+          <div class="preview">
+            <div class="preview-card">
+              <label class="drop" id="drop">
+                <input type="file" accept="image/*" id="file" hidden>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h3l2-3h6l2 3h3v13H4z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="13" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+                <b>Elige o arrastra una foto</b>
+                <span class="muted">JPG o PNG · desde la galería o la cámara</span>
+              </label>
+              <div class="cmp" id="cmp" hidden>
+                <canvas id="photo"></canvas>
+                <div class="split-line" id="splitLine" hidden></div>
+                <span class="cmp-tag left" id="tagBefore" hidden>Antes</span>
+                <span class="cmp-tag right" id="tagAfter" hidden>Después</span>
+                <span class="cmp-hint" id="cmpHint">👆 Toca la bolsa para seleccionarla</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="steps">
+            <div class="step">
+              <h3><span>1</span> Foto</h3>
+              <div class="row-btns">
+                <button class="btn btn-ghost btn-sm" id="pickPhoto">📷 Elegir foto</button>
+                <button class="btn btn-ghost btn-sm" id="samplePhoto">Usar foto de ejemplo</button>
+              </div>
+            </div>
+            <div class="step">
+              <h3><span>2</span> Selecciona la bolsa</h3>
+              <p class="label">Toca la bolsa en la foto. Si quedó una parte sin seleccionar, tócala también.</p>
+              <label class="range-row">
+                <span>Sensibilidad</span>
+                <input type="range" id="tol" min="8" max="70" value="34">
+                <b id="tolVal">34</b>
+              </label>
+              <div class="row-btns">
+                <button class="btn btn-ghost btn-sm" id="undo" disabled>↶ Deshacer</button>
+                <button class="btn btn-ghost btn-sm" id="clearSel" disabled>Quitar selección</button>
+              </div>
+            </div>
+            <div class="step">
+              <h3><span>3</span> Elige el color</h3>
+              <p class="label">Color: <b id="photoColorName"></b></p>
+              <div class="swatches" id="photoColors"></div>
+              <label class="range-row">
+                <span>Antes / después</span>
+                <input type="range" id="split" min="0" max="100" value="50">
+              </label>
+              <button class="btn btn-primary btn-sm" id="savePhoto" disabled>⬇ Guardar imagen</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CÓMO FUNCIONARÁ -->
+    <section class="section taller" id="como">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">El plan</p>
+          <h2>Así funcionará con las fotos reales</h2>
+        </div>
+        <div class="how-grid">
+          <article class="how-card"><span class="pn">1</span><h3>Fotos por pieza</h3><p>Cada modelo se fotografía una vez en hilo claro, con la cámara fija. Luego se cambia una pieza (correa, base, accesorio) y se toma otra foto. Así todas quedan alineadas.</p></article>
+          <article class="how-card"><span class="pn">2</span><h3>Recorte y capas</h3><p>Cada pieza se recorta del fondo y se guarda como una capa. Unas 20 fotos sustituyen a más de 4,000 combinaciones.</p></article>
+          <article class="how-card"><span class="pn">3</span><h3>Color en vivo</h3><p>La página toma el brillo de cada punto de la foto y lo tiñe del color elegido. La textura real del tejido se conserva, sin servidores ni costos extra.</p></article>
+        </div>
+        <details class="checklist">
+          <summary>📋 Lista de fotos para la sesión</summary>
+          <ul>
+            <li><b>Bolsa de frente</b> en hilo crudo o blanco, sin correa ni accesorios. Tripié fijo, luz suave, fondo liso.</li>
+            <li><b>Misma toma con cada correa</b> puesta, una foto por correa, sin mover la cámara.</li>
+            <li><b>Misma toma con cada accesorio</b> (borla, pompón, dije…).</li>
+            <li><b>Vista de la base</b>, una foto por tipo de base.</li>
+            <li><b>De cerca (macro)</b> de cada tipo de hilo y puntada, de frente al tejido: una con luz pareja y otra con luz de lado.</li>
+            <li>Modo manual: misma exposición y balance de blancos en todas, sin quemar los blancos. RAW si se puede.</li>
+          </ul>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-in">
+      <p>Trama · Laboratorio de vista previa</p>
+      <p class="muted">Prototipo: imágenes de prueba generadas por computadora.</p>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="../bag.js"></script>
+  <script src="recolor.js?v=5"></script>
+  <script src="demo.js?v=5"></script>
+  <script src="proto.js?v=5"></script>
+</body>
+</html>

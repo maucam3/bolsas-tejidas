@@ -1,0 +1,73 @@
+/* Laboratorio: se apoya en ../styles.css de la tienda y solo agrega lo propio. */
+[hidden] { display: none !important; }
+
+.lab-badge { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); border: 1.5px solid currentColor; border-radius: 999px; padding: 3px 10px; }
+.nav .back { margin-left: 4px; }
+
+.lab-hero { padding: 48px 24px 40px; }
+.lab-hero h1 { font-size: clamp(38px, 6vw, 64px); }
+.lab-hero h1 em { color: var(--accent); font-style: italic; }
+.lab-hero .lead { max-width: 38em; margin: 18px 0 22px; }
+.lab-note { display: inline-flex; gap: 10px; align-items: flex-start; background: #fff4dc; border: 1px solid #f0d9a8; padding: 12px 16px; border-radius: 14px; font-size: 14.5px; max-width: 46em; margin: 0; }
+
+/* Vista previa */
+.views { display: flex; gap: 4px; background: var(--bg-2); padding: 4px; border-radius: 999px; }
+.views button { flex: 1; border: 0; background: transparent; padding: 9px 10px; border-radius: 999px; font-weight: 600; font-size: 14px; transition: background .2s, color .2s; }
+.views button.on { background: var(--ink); color: #fff; }
+.lab-stage { position: relative; border-radius: 18px; overflow: hidden; background: linear-gradient(#f1ece4, #ddd3c5); margin-top: 14px; }
+.lab-stage canvas { display: block; width: 100%; height: auto; max-height: 68vh; object-fit: contain; margin: 0 auto; transition: opacity .2s; }
+.lab-stage.busy canvas { opacity: .5; }
+.stage-tag { position: absolute; left: 12px; bottom: 12px; font-size: 12.5px; font-weight: 600; background: rgba(255, 255, 255, .85); padding: 4px 11px; border-radius: 999px; }
+.busy-tag { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--serif); font-size: 22px; opacity: 0; pointer-events: none; transition: opacity .2s; }
+.lab-stage.busy .busy-tag { opacity: 1; }
+.perf { margin: 10px 2px 0; font-size: 12.5px; color: var(--muted); }
+
+.sw.same { display: grid; place-items: center; font-weight: 700; font-size: 18px; color: #fff; text-shadow: 0 1px 3px rgba(0, 0, 0, .55); }
+.lab .chip, .try .chip { padding: 8px 16px; }
+.step .label + .swatches { margin-bottom: 0; }
+.opts-chips + .label { margin-top: 14px; }
+
+/* Prueba con tu foto */
+.drop { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; min-height: 360px; border: 2px dashed #d6c6ae; border-radius: 18px; padding: 24px; cursor: pointer; background: #fffaf2; transition: border-color .2s, background .2s; }
+.drop svg { width: 44px; color: var(--accent); }
+.drop.over, .drop:hover { border-color: var(--accent); background: #fff4e8; }
+.cmp { position: relative; border-radius: 18px; overflow: hidden; background: #eee; }
+.cmp canvas { display: block; width: 100%; height: auto; cursor: crosshair; touch-action: manipulation; }
+.split-line { position: absolute; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: #fff; box-shadow: 0 0 0 1px rgba(0, 0, 0, .15); pointer-events: none; }
+.cmp-tag { position: absolute; top: 10px; font-size: 12px; font-weight: 700; background: rgba(42, 33, 27, .75); color: #fff; padding: 4px 10px; border-radius: 999px; pointer-events: none; }
+.cmp-tag.left { left: 10px; }
+.cmp-tag.right { right: 10px; }
+.cmp-hint { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); background: var(--ink); color: #fff; font-size: 14px; font-weight: 600; padding: 8px 16px; border-radius: 999px; pointer-events: none; white-space: nowrap; animation: nudge 1.6s ease-in-out infinite; }
+@keyframes nudge { 50% { transform: translate(-50%, -4px); } }
+.row-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+.btn:disabled { opacity: .4; cursor: not-allowed; }
+.btn-ghost:disabled:hover { background: transparent; color: inherit; }
+.range-row { display: flex; align-items: center; gap: 12px; margin: 4px 0 16px; font-size: 14px; font-weight: 600; }
+.range-row input { flex: 1; accent-color: var(--accent); }
+.range-row b { width: 2ch; text-align: right; }
+
+/* Cómo funcionará */
+.how-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.how-card { background: var(--card); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); }
+.how-card .pn { width: 34px; height: 34px; border-radius: 50%; background: var(--accent); color: #fff; font-weight: 700; display: grid; place-items: center; margin-bottom: 14px; }
+.how-card h3 { font-size: 21px; margin-bottom: 8px; }
+.how-card p { margin: 0; color: var(--muted); font-size: 15px; }
+.checklist { margin-top: 22px; background: var(--card); border-radius: var(--radius); padding: 18px 22px; box-shadow: var(--shadow); }
+.checklist summary { cursor: pointer; font-weight: 700; }
+.checklist ul { margin: 14px 0 0; padding-left: 20px; display: grid; gap: 8px; color: var(--muted); }
+.checklist b { color: var(--ink); }
+
+@media (max-width: 960px) {
+  .how-grid { grid-template-columns: 1fr; }
+  /* En celular la vista previa se queda fija arriba mientras eliges opciones. */
+  .lab .preview { position: sticky; top: 68px; z-index: 30; }
+  .lab .preview-card { padding: 10px; border-radius: 0 0 20px 20px; margin: 0 -16px; }
+  .lab-stage { margin-top: 8px; }
+  .lab-stage canvas { max-height: 34vh; width: auto; }
+  .lab .perf { display: none; }
+  .drop { min-height: 220px; }
+}
+@media (max-width: 640px) {
+  .lab-badge, .nav .back { display: none; }
+  .lab-hero { padding: 28px 16px 28px; }
+}
