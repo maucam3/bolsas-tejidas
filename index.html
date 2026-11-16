@@ -24,6 +24,7 @@
         <span>Trama</span>
       </a>
       <nav class="links">
+        <a href="#reales">Bolsas</a>
         <a href="#disenos">Diseños</a>
         <a href="#taller">Personaliza</a>
         <a href="#proceso">Proceso</a>
@@ -46,7 +47,7 @@
           <p class="lead">Bolsas tejidas una a una por artesanas. Tú eliges el modelo, el hilo, los colores, la correa y cada detalle. Nosotras la tejemos.</p>
           <div class="hero-cta">
             <a href="#taller" class="btn btn-primary">Diseña la tuya</a>
-            <a href="#disenos" class="btn btn-ghost">Ver diseños</a>
+            <a href="#reales" class="btn btn-ghost">Ver bolsas reales</a>
           </div>
           <ul class="hero-facts">
             <li><strong>+20&nbsp;h</strong><span>de tejido por bolsa</span></li>
@@ -57,8 +58,12 @@
         <div class="hero-visual">
           <div class="hero-blob"></div>
           <span class="yarn y1"></span><span class="yarn y2"></span><span class="yarn y3"></span>
-          <div class="hero-bag" id="heroBag"></div>
-          <p class="hero-tag" id="heroTag"></p>
+          <div class="hero-photo" id="heroPhoto">
+            <img src="img/negra-1-sm.jpg" alt="Bolsa tejida negra con boquilla de madera" class="on" width="720" height="480">
+            <img src="img/rayas-1-sm.jpg" alt="Bolsa tejida de rayas con boquilla dorada" width="720" height="480" loading="lazy">
+            <img src="img/cordon-1-sm.jpg" alt="Bolsa tejida de cordón con boquilla de madera" width="720" height="480" loading="lazy">
+          </div>
+          <p class="hero-tag"><span style="--c:#c4623f"></span>Foto real · hecha a mano</p>
         </div>
       </div>
       <div class="marquee" aria-hidden="true">
@@ -69,13 +74,48 @@
       </div>
     </section>
 
+    <!-- BOLSAS REALES -->
+    <section class="section real" id="reales">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Fotos reales</p>
+          <h2>Hechas a mano, de verdad</h2>
+          <p class="muted">Bolsas terminadas, fotografiadas tal cual. Elige una, mírala de cerca y pruébala en otros colores.</p>
+        </div>
+        <div class="real-tabs" id="realTabs" role="tablist" aria-label="Bolsas"></div>
+        <div class="real-grid">
+          <div class="real-view">
+            <div class="real-frame" id="realFrame">
+              <div class="real-zoom" id="realZoom">
+                <img id="realImg" alt="" width="1500" height="1000">
+                <canvas id="realCanvas" width="1500" height="1000" hidden></canvas>
+              </div>
+              <span class="real-badge" id="realBadge">Foto real</span>
+              <span class="real-hint">Toca para acercar</span>
+            </div>
+            <div class="real-thumbs" id="realThumbs"></div>
+          </div>
+          <div class="real-info">
+            <h3 id="realTitle"></h3>
+            <p class="muted" id="realDesc"></p>
+            <div class="real-colors" id="realColorBox">
+              <p class="label">Pruébala en otro color: <b id="realColorName">Original</b></p>
+              <div class="swatches" id="realColors"></div>
+              <p class="real-note">Simulación sobre la foto real: se conserva cada puntada y solo cambia el color del tejido. El tono final depende del hilo disponible.</p>
+            </div>
+            <a href="#taller" class="btn btn-primary">Diseña la tuya</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- PRESETS -->
     <section class="section" id="disenos">
       <div class="wrap">
         <div class="section-head">
-          <p class="eyebrow">Colección</p>
+          <p class="eyebrow">Ideas</p>
           <h2>Diseños para empezar</h2>
-          <p class="muted">Elige uno tal cual o úsalo como punto de partida y cámbiale lo que quieras.</p>
+          <p class="muted">Ilustraciones de ejemplo: elige una como punto de partida y cámbiale lo que quieras.</p>
         </div>
         <div class="presets" id="presets"></div>
       </div>
@@ -197,5 +237,7 @@
 
   <script src="bag.js"></script>
   <script src="app.js"></script>
+  <script src="prototipo/recolor.js"></script>
+  <script src="real.js"></script>
 </body>
 </html>

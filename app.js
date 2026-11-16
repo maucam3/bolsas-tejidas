@@ -308,20 +308,6 @@ $('#checkout').addEventListener('click', () => {
   toast(`¡Pedido simulado de ${n} bolsa${n > 1 ? 's' : ''}! (esto es una demo)`);
 });
 
-// ---------- Hero: la bolsa va cambiando de diseño ----------
-let heroIdx = 0;
-function heroTick() {
-  const p = PRESETS[heroIdx % PRESETS.length];
-  const el = $('#heroBag');
-  el.classList.add('fade');
-  setTimeout(() => {
-    el.innerHTML = renderBag({ ...p.cfg, monogram: '' }, { swing: true });
-    $('#heroTag').innerHTML = `<span style="--c:${hexOf(p.cfg.color)}"></span>${p.name}`;
-    el.classList.remove('fade');
-  }, heroIdx ? 350 : 0);
-  heroIdx++;
-}
-
 // ---------- Arranque ----------
 (function init() {
   const m = location.hash.match(/#d=(.+)/);
@@ -334,8 +320,6 @@ function heroTick() {
   renderPresets();
   renderConfig(false);
   renderCart();
-  heroTick();
-  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) setInterval(heroTick, 3800);
   if (shared) setTimeout(() => $('#taller').scrollIntoView(), 50);
 })();
 
