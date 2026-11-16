@@ -1,17 +1,17 @@
 {
-  "name": "Trama · Bolsas tejidas a mano",
-  "short_name": "Trama",
-  "description": "Diseña tu bolsa tejida a mano: modelo, hilo, colores, correa y accesorios.",
+  "name": "Lilián Cuevas · Bolsas tejidas a mano",
+  "short_name": "Lilián Cuevas",
+  "description": "¡Una ventana al arte! Bolsas tejidas a mano: mira las bolsas reales y diseña la tuya.",
   "lang": "es",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#fbf6ee",
-  "theme_color": "#fbf6ee",
+  "background_color": "#0a62b4",
+  "theme_color": "#f3f6fb",
   "icons": [
     { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
     { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
-    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    { "src": "icons/icon-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ]
 }

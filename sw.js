@@ -1,6 +1,6 @@
 // Service worker: guarda la tienda para que abra sin internet.
-const CACHE = 'trama-v2';
-const SHELL = ['./', 'index.html', 'styles.css', 'bag.js', 'app.js', 'real.js', 'prototipo/recolor.js', 'manifest.webmanifest', 'icons/icon-192.png', 'icons/icon-512.png'];
+const CACHE = 'lc-v3';
+const SHELL = ['./', 'index.html', 'styles.css', 'bag.js', 'app.js', 'real.js', 'prototipo/recolor.js', 'manifest.webmanifest', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/mark-96.png', 'img/logo.jpg'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).then(() => self.skipWaiting()));

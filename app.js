@@ -330,7 +330,7 @@ const standalone = matchMedia('(display-mode: standalone)').matches || navigator
 const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
 let installEvt = null;
 addEventListener('beforeinstallprompt', e => { e.preventDefault(); installEvt = e; if (!standalone) $('#installBtn').hidden = false; });
-addEventListener('appinstalled', () => { installEvt = null; $('#installBtn').hidden = true; toast('¡Listo! Trama ya está en tu pantalla de inicio'); });
+addEventListener('appinstalled', () => { installEvt = null; $('#installBtn').hidden = true; toast('¡Listo! Lilián Cuevas ya está en tu pantalla de inicio'); });
 if (isIOS && !standalone) $('#installBtn').hidden = false;
 $('#installBtn').onclick = async () => {
   if (installEvt) { installEvt.prompt(); await installEvt.userChoice; installEvt = null; $('#installBtn').hidden = true; }
