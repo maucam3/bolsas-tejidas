@@ -1,5 +1,5 @@
 // Service worker: guarda la tienda para que abra sin internet.
-const CACHE = 'lc-v4';
+const CACHE = 'lc-v5';
 const SHELL = ['./', 'index.html', 'styles.css', 'colores.js', 'luz.js', 'app.js', 'estudio.js', 'prototipo/recolor.js', 'manifest.webmanifest', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/mark-96.png', 'img/logo.jpg'];
 
 self.addEventListener('install', e => {

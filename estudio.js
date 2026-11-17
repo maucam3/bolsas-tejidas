@@ -3,6 +3,13 @@
 
 const REAL = [
   {
+    id: 'vino', name: 'Vino con dorado',
+    title: 'Bolsa vino con boquilla dorada',
+    desc: 'Tejida con tiras de tela de punto color vino, en puntadas con relieve que forman diagonales. Boquilla dorada labrada, broche de bolitas y asa dorada.',
+    views: [['vino-1', 'De frente']],
+    recolor: true,
+  },
+  {
     id: 'negra', name: 'Negra con madera',
     title: 'Bolsa negra con boquilla de madera',
     desc: 'Tejida con una cinta que tiene una cara mate y otra brillante: al girar, el tejido alterna los dos acabados. Boquilla de madera con broche de esferas.',
