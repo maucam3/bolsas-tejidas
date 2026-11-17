@@ -42,6 +42,7 @@ then open <http://localhost:5500>.
 - `luz.js`: moonlight relighting (WebGL).
 - `app.js`: order list, scroll effects and installable app.
 - `prototipo/`: earlier lab; `prototipo/recolor.js` is the recoloring engine used by the store.
+- `guia-fotos/`: photo-session checklist (tripod, 4-direction lighting for relief, turntable for 3D). Not linked from the store, `noindex`.
 - `img/`: web-sized photos, recolor maps and the logo.
 
 Version history: `v0.1` tag = first version with real photos and the Lilián Cuevas brand.

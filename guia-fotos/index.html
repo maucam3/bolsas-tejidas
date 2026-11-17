@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Guía de fotos · Lilián Cuevas</title>
+  <meta name="description" content="Cómo tomar las fotos de las bolsas de Lilián Cuevas para la tienda: cambio de color, luz de luna y vista en 3D.">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#f3f6fb">
+  <link rel="icon" href="../icons/icon-192.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f3f6fb; --card: #fff; --ink: #1e2329; --muted: #5c6676; --line: #d5deea;
+      --accent: #0a62b4; --sky: #00a3e6; --ok: #138a4b; --warn: #b45309; --warn-bg: #fff7ed;
+      --serif: 'Zilla Slab', Georgia, serif; --sans: 'DM Sans', system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.6 var(--sans); -webkit-font-smoothing: antialiased; }
+    a { color: var(--accent); }
+    svg { display: block; max-width: 100%; height: auto; }
+    h1, h2, h3 { font-family: var(--serif); font-weight: 600; line-height: 1.15; margin: 0; }
+    .wrap { max-width: 760px; margin: 0 auto; padding: 0 16px; }
+
+    header { background: linear-gradient(180deg, #034a9e 0%, #0a6cbd 60%, #009fe2 100%); color: #fff; padding: 28px 0 36px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-family: var(--serif); font-weight: 600; font-size: 18px; text-decoration: none; color: #fff; }
+    .brand img { width: 36px; height: 36px; border-radius: 9px; }
+    header h1 { font-size: clamp(30px, 7vw, 44px); margin: 22px 0 10px; }
+    header p { margin: 0; max-width: 560px; opacity: .92; }
+
+    .progress { position: sticky; top: 0; z-index: 5; background: rgba(243, 246, 251, .94); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+    .progress .wrap { display: flex; align-items: center; gap: 12px; padding-top: 10px; padding-bottom: 10px; font-size: 14px; font-weight: 600; }
+    .bar { flex: 1; height: 8px; border-radius: 99px; background: var(--line); overflow: hidden; }
+    .bar i { display: block; height: 100%; width: 0; background: var(--ok); transition: width .3s; }
+    #reset { border: 0; background: none; color: var(--muted); font: inherit; font-size: 13px; cursor: pointer; text-decoration: underline; padding: 4px; }
+
+    main { padding: 8px 0 60px; }
+    section { margin-top: 36px; }
+    .step-n { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--accent); color: #fff; font: 700 15px var(--sans); margin-right: 8px; vertical-align: 3px; }
+    h2 { font-size: 26px; margin-bottom: 6px; }
+    .why { color: var(--muted); margin: 0 0 14px; }
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 18px; margin-top: 14px; }
+    .card h3 { font-size: 19px; margin-bottom: 8px; }
+    .card p { margin: 0 0 10px; }
+    .card p:last-child { margin-bottom: 0; }
+    figure { margin: 14px 0 0; }
+    figcaption { font-size: 13px; color: var(--muted); margin-top: 6px; text-align: center; }
+
+    .check { list-style: none; padding: 0; margin: 0; }
+    .check li + li { border-top: 1px solid var(--line); }
+    .check label { display: flex; gap: 12px; align-items: flex-start; padding: 11px 0; cursor: pointer; }
+    .check input { flex: none; width: 22px; height: 22px; margin: 2px 0 0; accent-color: var(--ok); cursor: pointer; }
+    .check input:checked + span { color: var(--muted); text-decoration: line-through; text-decoration-color: rgba(92, 102, 118, .5); }
+    .check b { font-weight: 600; }
+    .check small { display: block; color: var(--muted); font-size: 13.5px; }
+
+    .table { width: 100%; border-collapse: collapse; font-size: 15px; }
+    .table td { padding: 9px 0; border-top: 1px solid var(--line); vertical-align: top; }
+    .table tr:first-child td { border-top: 0; }
+    .table td:first-child { font-weight: 600; width: 44%; padding-right: 12px; }
+
+    .warn { background: var(--warn-bg); border: 1px solid #fed7aa; border-radius: 12px; padding: 12px 14px; color: #7c2d12; font-size: 15px; margin-top: 14px; }
+    .warn b { color: var(--warn); }
+    .tag { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; border-radius: 99px; padding: 2px 10px; background: #e0efff; color: var(--accent); margin-left: 6px; vertical-align: 4px; }
+    .tag.opt { background: #eef0f3; color: var(--muted); }
+
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 560px) { .grid2 { grid-template-columns: 1fr; } }
+
+    footer { color: var(--muted); font-size: 14px; padding: 30px 0 50px; border-top: 1px solid var(--line); }
+    @media print {
+      .progress, #reset { display: none; }
+      header { background: none; color: var(--ink); padding: 0; }
+      .brand { color: var(--ink); }
+      section, .card { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="brand" href="../"><img src="../icons/mark-96.png" alt="">Lilián Cuevas</a>
+    <h1>Guía para la sesión de fotos</h1>
+    <p>Con estas fotos la tienda podrá cambiar el color de cada bolsa casi sin error, mostrar el relieve real del tejido con la luz de luna y, más adelante, verla en 3D. Ve marcando cada paso: la página recuerda lo que ya hiciste en este teléfono.</p>
+  </div>
+</header>
+
+<div class="progress" aria-live="polite">
+  <div class="wrap">
+    <span id="count">0 de 0</span>
+    <div class="bar"><i id="fill"></i></div>
+    <button id="reset" type="button">Reiniciar</button>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <section>
+    <h2><span class="step-n">1</span>Lo que necesitas</h2>
+    <p class="why">Casi todo ya está en casa. Lo único importante es el tripié: la cámara no se puede mover entre fotos.</p>
+    <div class="card">
+      <ul class="check">
+        <li><label><input type="checkbox"><span><b>La cámara (la Canon) y el tripié</b><small>Sin tripié no sirve la parte de la luz de luna.</small></span></label></li>
+        <li><label><input type="checkbox"><span><b>Una lámpara que se pueda mover</b><small>De escritorio o un foco LED con base. Mejor luz blanca que amarilla.</small></span></label></li>
+        <li><label><input type="checkbox"><span><b>Una hoja blanca de papel o un pañuelo blanco</b><small>Para suavizar la lámpara y como referencia del color blanco.</small></span></label></li>
+        <li><label><input type="checkbox"><span><b>Fondo liso y mate de un solo color</b><small>Tela o cartulina sin brillo. El azul marino de la bolsa vino funcionó muy bien.</small></span></label></li>
+        <li><label><input type="checkbox"><span><b>Una cinta métrica</b><small>Para una foto con la medida de cada bolsa.</small></span></label></li>
+        <li><label><input type="checkbox"><span><b>Papel para rellenar las bolsas</b><small>Para que todas tengan su forma natural, sin hundirse.</small></span></label></li>
+        <li><label><input type="checkbox"><span><b>Un plato giratorio</b> <span class="tag opt">opcional</span><small>Solo para la vuelta en 3D (paso 6). Puede ser una base de pastel.</small></span></label></li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="step-n">2</span>Prepara el lugar</h2>
+    <p class="why">El lugar se arma una vez y no se toca hasta terminar todas las bolsas.</p>
+    <figure class="card">
+      <svg viewBox="0 0 640 390" role="img" aria-label="Vista desde arriba: fondo atrás, la bolsa en el centro, la cámara en el tripié al frente y la lámpara a un lado">
+        <rect x="0" y="0" width="640" height="390" rx="12" fill="#f8fafc"/>
+        <path d="M120 26 H520 V70 H120 Z" fill="#1f2a5a"/>
+        <text x="320" y="56" fill="#fff" font-size="24" text-anchor="middle" font-family="DM Sans">fondo liso</text>
+        <rect x="255" y="112" width="130" height="64" rx="18" fill="#8b1d3b"/>
+        <text x="320" y="152" fill="#fff" font-size="24" text-anchor="middle" font-family="DM Sans">bolsa</text>
+        <path d="M320 176 V250" stroke="#94a3b8" stroke-width="2" stroke-dasharray="5 5"/>
+        <text x="334" y="222" fill="#5c6676" font-size="22" font-family="DM Sans">1 a 1.5 m</text>
+        <rect x="292" y="250" width="56" height="34" rx="6" fill="#1e2329"/>
+        <circle cx="320" cy="250" r="10" fill="#475569"/>
+        <path d="M300 284 L280 330 M320 284 V334 M340 284 L360 330" stroke="#1e2329" stroke-width="4" stroke-linecap="round"/>
+        <text x="320" y="370" fill="#1e2329" font-size="24" text-anchor="middle" font-family="DM Sans" font-weight="600">cámara en tripié</text>
+        <circle cx="120" cy="146" r="18" fill="#fde68a" stroke="#f59e0b" stroke-width="3"/>
+        <path d="M140 146 L248 146" stroke="#f59e0b" stroke-width="2" stroke-dasharray="3 6"/>
+        <text x="120" y="194" fill="#1e2329" font-size="24" text-anchor="middle" font-family="DM Sans">lámpara</text>
+        <text x="520" y="140" fill="#5c6676" font-size="21" text-anchor="middle" font-family="DM Sans">cortinas</text>
+        <text x="520" y="166" fill="#5c6676" font-size="21" text-anchor="middle" font-family="DM Sans">cerradas</text>
+      </svg>
+      <figcaption>Visto desde arriba. La lámpara se irá moviendo; la cámara y la bolsa no.</figcaption>
+    </figure>
+    <div class="card">
+      <ul class="check">
+        <li><label><input type="checkbox"><span><b>Elige un cuarto que se pueda oscurecer</b><small>Para la luz de luna solo debe alumbrar la lámpara. Una ventana abierta arruina esas fotos.</small></span></label></li>
+        <li><label><input type="checkbox"><span><b>Fondo que contraste con la bolsa</b><small>Bolsa oscura: fondo claro o gris. Bolsa clara: fondo oscuro. Si no quieres cambiar, un gris medio sirve para todas.</small></span></label></li>
+        <li><label><input type="checkbox"><span><b>Bolsa al centro, a 30 o 40 cm del fondo</b><small>Así su sombra no cae en el fondo.</small></span></label></li>
+        <li><label><input type="checkbox"><span><b>Tripié a la altura del centro de la bolsa, de frente</b><small>La cámara mirando derecho, sin inclinar.</small></span></label></li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="step-n">3</span>Configura la cámara</h2>
+    <p class="why">La regla de oro: entre las fotos de una misma bolsa, la cámara no cambia nada por su cuenta. Por eso todo va en manual.</p>
+    <div class="card">
+      <table class="table">
+        <tr><td>Modo</td><td><b>M</b> (manual)</td></tr>
+        <tr><td>ISO</td><td>100</td></tr>
+        <tr><td>Apertura</td><td>f/8 (toda la bolsa sale enfocada)</td></tr>
+        <tr><td>Velocidad</td><td>La que deje la foto bien expuesta con la lámpara. Si sale oscura, más lenta: con tripié no importa.</td></tr>
+        <tr><td>Balance de blancos</td><td>Fijo, nunca automático. "Luz de día" o personalizado con la hoja blanca.</td></tr>
+        <tr><td>Enfoque</td><td>Enfoca una vez en el tejido y cambia a enfoque <b>MF</b> (manual), en el menú o en el lente, para que no cambie.</td></tr>
+        <tr><td>Disparo</td><td>Temporizador de 2 segundos, o desde el celular con la app Canon Camera Connect. Así no se mueve al apretar.</td></tr>
+        <tr><td>Formato</td><td><b>RAW + JPEG</b></td></tr>
+        <tr><td>Estabilizador</td><td>Apagado (en tripié puede mover la imagen).</td></tr>
+        <tr><td>Zoom</td><td>Ajústalo para que la bolsa llene casi todo el cuadro y no lo vuelvas a tocar.</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <ul class="check">
+        <li><label><input type="checkbox"><span><b>Cámara en manual con los valores de la tabla</b></span></label></li>
+        <li><label><input type="checkbox"><span><b>Prueba: dos fotos seguidas salen idénticas</b><small>Si cambia el brillo o el color entre una y otra, algo sigue en automático.</small></span></label></li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="step-n">4</span>Las fotos de cada bolsa</h2>
+    <p class="why">Repite este paso con cada bolsa, en este orden. Así sé cuál foto es cuál sin que tengas que renombrarlas.</p>
+
+    <div class="card">
+      <h3>Antes de empezar con la bolsa</h3>
+      <ul class="check">
+        <li><label><input type="checkbox"><span><b>Rellénala con papel y quita pelusas y etiquetas</b></span></label></li>
+        <li><label><input type="checkbox"><span><b>Cadena o asa en la posición en que se usa</b><small>Si la cadena tapa el tejido, una foto sin cadena y otra con cadena.</small></span></label></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>A. Foto de tienda <span class="tag">2 fotos</span></h3>
+      <p>Con la luz normal del cuarto o de la ventana, de frente. Es la que verá la gente.</p>
+      <ul class="check">
+        <li><label><input type="checkbox"><span><b>De frente</b></span></label></li>
+        <li><label><input type="checkbox"><span><b>De frente con la hoja blanca a un lado</b><small>Sirve para corregir el color exacto. La hoja debe verse completa.</small></span></label></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>B. Luz de luna <span class="tag">5 fotos</span></h3>
+      <p>Esto es lo que hace que el relieve se vea de verdad. <b>Cuarto oscuro, solo la lámpara.</b> La cámara y la bolsa no se mueven ni un milímetro; solo cambias la lámpara de lugar.</p>
+      <figure>
+        <svg viewBox="0 0 640 380" role="img" aria-label="Vista desde la cámara: la bolsa al centro y la lámpara en cuatro posiciones, izquierda, derecha, arriba y abajo">
+          <rect x="0" y="0" width="640" height="380" rx="12" fill="#0f1b3d"/>
+          <circle cx="320" cy="190" r="150" fill="none" stroke="#334155" stroke-width="2" stroke-dasharray="4 8"/>
+          <path d="M262 150 Q262 128 286 128 H354 Q378 128 378 150 L392 236 Q392 258 368 258 H272 Q248 258 248 236 Z" fill="#8b1d3b"/>
+          <path d="M282 128 Q320 84 358 128" fill="none" stroke="#d4af37" stroke-width="5"/>
+          <text x="320" y="204" fill="#fff" font-size="24" text-anchor="middle" font-family="DM Sans">bolsa</text>
+          <g font-family="DM Sans" font-size="23" text-anchor="middle">
+            <circle cx="140" cy="190" r="27" fill="#fde68a" stroke="#f59e0b" stroke-width="3"/><text x="140" y="198" fill="#1e2329" font-weight="700">1</text><text x="110" y="248" fill="#e2e8f0">izquierda</text>
+            <circle cx="500" cy="190" r="27" fill="#fde68a" stroke="#f59e0b" stroke-width="3"/><text x="500" y="198" fill="#1e2329" font-weight="700">2</text><text x="530" y="248" fill="#e2e8f0">derecha</text>
+            <circle cx="320" cy="40" r="27" fill="#fde68a" stroke="#f59e0b" stroke-width="3"/><text x="320" y="48" fill="#1e2329" font-weight="700">3</text><text x="410" y="48" fill="#e2e8f0">arriba</text>
+            <circle cx="320" cy="340" r="27" fill="#fde68a" stroke="#f59e0b" stroke-width="3"/><text x="320" y="348" fill="#1e2329" font-weight="700">4</text><text x="405" y="348" fill="#e2e8f0">abajo</text>
+          </g>
+        </svg>
+        <figcaption>Visto desde atrás de la cámara. La lámpara siempre a la misma distancia de la bolsa (unos 60 cm), un poco hacia adelante, apuntando al centro.</figcaption>
+      </figure>
+      <ul class="check" style="margin-top:12px">
+        <li><label><input type="checkbox"><span><b>Lámpara a la izquierda</b></span></label></li>
+        <li><label><input type="checkbox"><span><b>Lámpara a la derecha</b></span></label></li>
+        <li><label><input type="checkbox"><span><b>Lámpara arriba</b></span></label></li>
+        <li><label><input type="checkbox"><span><b>Lámpara abajo</b><small>Se puede poner en el piso o en un banco bajo, apuntando hacia arriba.</small></span></label></li>
+        <li><label><input type="checkbox"><span><b>Lámpara junto a la cámara</b><small>De frente, como foto de control.</small></span></label></li>
+      </ul>
+      <div class="warn"><b>Ojo:</b> si en alguna foto la boquilla brilla tanto que se ve blanca, pon la hoja blanca o el pañuelo delante de la lámpara para suavizarla, y repite las 5 fotos con eso.</div>
+    </div>
+
+    <div class="card">
+      <h3>C. Medida <span class="tag">1 foto</span></h3>
+      <ul class="check">
+        <li><label><input type="checkbox"><span><b>Con la cinta métrica extendida al pie de la bolsa</b><small>Prende la luz normal. Sirve para las medidas y para que en 3D salga del tamaño real.</small></span></label></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>D. Otros ángulos <span class="tag">3 fotos</span></h3>
+      <p>Aquí ya puedes mover la bolsa. Luz normal.</p>
+      <ul class="check">
+        <li><label><input type="checkbox"><span><b>De lado</b></span></label></li>
+        <li><label><input type="checkbox"><span><b>Por atrás</b></span></label></li>
+        <li><label><input type="checkbox"><span><b>Abierta, mostrando el interior</b></span></label></li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="step-n">5</span>Piezas y colores sueltos</h2>
+    <p class="why">Una sola vez, no por bolsa. Con esto la tienda podrá mostrar los colores reales de los hilos y, más adelante, armar bolsas combinando piezas.</p>
+    <div class="grid2">
+      <div class="card">
+        <h3>Muestrario de hilos</h3>
+        <p>Todos los rollos u ovillos juntos, desde arriba, con la hoja blanca en la foto. Luz normal y el mismo balance de blancos.</p>
+        <ul class="check">
+          <li><label><input type="checkbox"><span><b>Todos los colores de hilo</b><small>Si son muchos, en varias fotos. Que se lea el nombre si lo tienen en la etiqueta.</small></span></label></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Herrajes</h3>
+        <p>Cada pieza sola sobre el fondo, de frente.</p>
+        <ul class="check">
+          <li><label><input type="checkbox"><span><b>Cada boquilla</b></span></label></li>
+          <li><label><input type="checkbox"><span><b>Cadenas y asas</b></span></label></li>
+          <li><label><input type="checkbox"><span><b>Dijes y broches</b></span></label></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="step-n">6</span>Vuelta completa para 3D <span class="tag opt">opcional</span></h2>
+    <p class="why">Para ver la bolsa en 3D y ponerla con la cámara del celular sobre una mesa (realidad aumentada). Si hay tiempo, empieza con una sola bolsa para probar.</p>
+    <figure class="card">
+      <svg viewBox="0 0 640 300" role="img" aria-label="La bolsa sobre un plato giratorio con marcas cada 15 grados y la cámara fija; se toma una foto, se gira una marca y se repite 24 veces">
+        <rect x="0" y="0" width="640" height="300" rx="12" fill="#f8fafc"/>
+        <ellipse cx="230" cy="200" rx="150" ry="52" fill="#e2e8f0" stroke="#94a3b8" stroke-width="2"/>
+        <g stroke="#475569" stroke-width="2" id="ticks"></g>
+        <path d="M188 120 Q188 104 206 104 H254 Q272 104 272 120 L282 186 Q282 200 266 200 H194 Q178 200 178 186 Z" fill="#8b1d3b"/>
+        <path d="M202 104 Q230 70 258 104" fill="none" stroke="#d4af37" stroke-width="5"/>
+        <path d="M384 150 A170 60 0 0 0 330 110" fill="none" stroke="#0a62b4" stroke-width="3" marker-end="url(#ar)"/>
+        <defs><marker id="ar" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#0a62b4"/></marker></defs>
+        <rect x="500" y="170" width="70" height="40" rx="6" fill="#1e2329"/>
+        <circle cx="500" cy="190" r="12" fill="#475569"/>
+        <path d="M512 210 L496 270 M535 210 V276 M558 210 L574 270" stroke="#1e2329" stroke-width="4" stroke-linecap="round"/>
+        <g font-family="DM Sans" font-size="22" fill="#1e2329" text-anchor="middle">
+          <text x="230" y="286">24 marcas, cada 15°</text>
+          <text x="535" y="156" font-weight="600">cámara fija</text>
+          <text x="440" y="60" fill="#0a62b4">gira 1 marca</text>
+          <text x="440" y="86" fill="#0a62b4">y toma foto</text>
+        </g>
+      </svg>
+      <figcaption>Imprime o dibuja 24 marcas en el borde del plato, como las horas de un reloj pero el doble.</figcaption>
+    </figure>
+    <div class="card">
+      <ul class="check">
+        <li><label><input type="checkbox"><span><b>Luz suave y pareja, sin la lámpara directa</b><small>Aquí no queremos sombras fuertes: luz del día de una ventana grande o la lámpara rebotando en una pared blanca.</small></span></label></li>
+        <li><label><input type="checkbox"><span><b>Vuelta 1: cámara a la altura de la bolsa, 24 fotos</b><small>Una foto, girar una marca, otra foto, hasta completar la vuelta.</small></span></label></li>
+        <li><label><input type="checkbox"><span><b>Vuelta 2: cámara más alta mirando un poco hacia abajo, 24 fotos</b></span></label></li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="step-n">7</span>Mándalas</h2>
+    <div class="card">
+      <ul class="check">
+        <li><label><input type="checkbox"><span><b>Una carpeta por bolsa en Drive</b><small>Dentro de <a href="https://drive.google.com/drive/folders/1vumus41kZ7z1ydP05gLSnP7biMt-TNTt">Trama - Fotos de bolsas</a>. Nómbrala como la bolsa (por ejemplo "vino") y sube las fotos sin renombrar, en el orden en que se tomaron.</small></span></label></li>
+        <li><label><input type="checkbox"><span><b>Sube los JPEG y también los RAW (.CR3)</b><small>Los RAW pesan más, pero guardan más detalle para la luz de luna y el 3D.</small></span></label></li>
+        <li><label><input type="checkbox"><span><b>Una carpeta "piezas y colores" para el paso 5</b></span></label></li>
+        <li><label><input type="checkbox"><span><b>Avisar que ya están</b></span></label></li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">Lilián Cuevas · ¡Una ventana al arte! · <a href="../">Volver a la tienda</a></div>
+</footer>
+
+<script>
+  // Marcas del plato giratorio (24, cada 15°).
+  (() => {
+    const g = document.getElementById('ticks');
+    for (let i = 0; i < 24; i++) {
+      const a = i / 24 * Math.PI * 2, x = 230 + Math.cos(a) * 150, y = 200 + Math.sin(a) * 52;
+      const l = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      l.setAttribute('x1', x); l.setAttribute('y1', y);
+      l.setAttribute('x2', 230 + Math.cos(a) * 138); l.setAttribute('y2', 200 + Math.sin(a) * 47.8);
+      g.appendChild(l);
+    }
+  })();
+
+  // Lista de pasos: se recuerda en este teléfono.
+  const KEY = 'lc-guia-fotos';
+  const boxes = [...document.querySelectorAll('.check input')];
+  let saved = [];
+  try { saved = JSON.parse(localStorage.getItem(KEY)) || []; } catch {}
+  boxes.forEach((b, i) => { b.checked = !!saved[i]; });
+  function update() {
+    const done = boxes.filter(b => b.checked).length;
+    document.getElementById('count').textContent = `${done} de ${boxes.length}`;
+    document.getElementById('fill').style.width = (done / boxes.length * 100) + '%';
+    try { localStorage.setItem(KEY, JSON.stringify(boxes.map(b => b.checked))); } catch {}
+  }
+  boxes.forEach(b => b.addEventListener('change', update));
+  document.getElementById('reset').onclick = () => {
+    if (!boxes.some(b => b.checked) || !confirm('¿Desmarcar todos los pasos?')) return;
+    boxes.forEach(b => { b.checked = false; });
+    update();
+  };
+  update();
+</script>
+</body>
+</html>
