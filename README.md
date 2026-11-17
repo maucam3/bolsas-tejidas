@@ -8,14 +8,12 @@
 
 ## Features
 
-- **Real bags**: photo gallery of finished bags with several views each and tap-to-zoom.
+- **The studio**: real photos of finished bags, several views each and tap-to-zoom.
 - **Try another color**: recolors the real photo in the browser, keeping every stitch and the yarn's sheen.
-- **Preset designs**: six example bags that can be bought as they are or customized.
-- **Design studio**: bag model (tote, bucket, half-moon, envelope), yarn type (cotton, jute, macramé, t-shirt yarn, raffia), 14 yarn colors, weave pattern, strap and accessories (tassel, pom-pom, shell charm, button, fringe, lining), plus embroidered initials.
-- **Live SVG preview** that redraws instantly, with a magnifier to inspect the yarn texture.
-- **Surprise me**: generates a random design.
-- **Share**: copies a link to the exact design.
-- **Cart** stored in the browser (checkout is simulated).
+- **Moonlight**: a WebGL light that follows your finger or mouse over the real photo, revealing the relief of each stitch (estimated from the photo itself).
+- **Scroll effects**: windows that open their shutters, stitched headings, and a yarn thread that knits itself through the process steps.
+- **Order list** stored in the browser, with a thumbnail of the chosen color (sending is simulated; prices pending).
+- **Share**: copies a link to the exact bag and color.
 
 ## Install as an app
 
@@ -38,8 +36,12 @@ then open <http://localhost:5500>.
 ## Files
 
 - `index.html`: page structure.
-- `styles.css`: styles and responsive layout.
-- `bag.js`: catalog (colors, yarns, straps…) and the SVG bag renderer.
-- `app.js`: configurator, presets, cart and animations.
-- `real.js`: real-photo gallery, zoom and recoloring (uses `prototipo/recolor.js`).
+- `styles.css`: styles, animations and responsive layout.
+- `colores.js`: placeholder yarn colors (to be replaced with the real ones).
+- `estudio.js`: the studio (bags, views, recoloring, order button, share link) and the hero.
+- `luz.js`: moonlight relighting (WebGL).
+- `app.js`: order list, scroll effects and installable app.
+- `prototipo/`: earlier lab; `prototipo/recolor.js` is the recoloring engine used by the store.
 - `img/`: web-sized photos, recolor maps and the logo.
+
+Version history: `v0.1` tag = first version with real photos and the Lilián Cuevas brand.

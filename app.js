@@ -1,10 +1,7 @@
-// Interfaz: diseños, configurador, carrito.
+// Interfaz general: pedido, efectos al bajar por la página y app instalable.
 
 const $ = s => document.querySelector(s);
-const money = n => '$' + n.toLocaleString('es');
-
-let state = { ...PRESETS[0].cfg, acc: [...PRESETS[0].cfg.acc], monogram: '', name: PRESETS[0].name };
-let cart = [];
+const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // ---------- Utilidades ----------
 function store(key, val) {
@@ -23,6 +20,7 @@ function toast(msg) {
 }
 
 function confetti(colors) {
+  if (still) return;
   const box = $('#confetti');
   for (let i = 0; i < 36; i++) {
     const s = document.createElement('span');
@@ -37,259 +35,53 @@ function confetti(colors) {
   }
 }
 
-const pick = arr => arr[Math.floor(Math.random() * arr.length)];
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-function encodeCfg(c) {
-  return btoa(unescape(encodeURIComponent(JSON.stringify({ m: c.model, y: c.yarn, c: c.color, c2: c.color2, p: c.pattern, s: c.strap, a: c.acc, i: c.monogram }))));
-}
+// ---------- Pedido ----------
+// Sin precios todavía: Lilián los confirma. El envío del pedido es una demostración.
+let order = (store('lc-pedido') || []).filter(i => i && i.bag && i.name);
 
-function decodeCfg(str) {
-  try {
-    const o = JSON.parse(decodeURIComponent(escape(atob(str))));
-    return { model: o.m, yarn: o.y, color: o.c, color2: o.c2, pattern: o.p, strap: o.s, acc: o.a || [], monogram: o.i || '' };
-  } catch { return null; }
-}
-
-// ---------- Diseños prestablecidos ----------
-function renderPresets() {
-  $('#presets').innerHTML = PRESETS.map((p, i) => {
-    const c = { ...p.cfg, monogram: '' };
-    return `<article class="preset" style="--tint:${hexOf(c.color)}">
-      ${p.tag ? `<span class="badge">${p.tag}</span>` : ''}
-      <div class="preset-art">${renderBag(c)}</div>
-      <div class="preset-info">
-        <div>
-          <h3>${p.name}</h3>
-          <p class="muted">${byId(MODELS, c.model).name} · ${byId(YARNS, c.yarn).name} · ${byId(STRAPS, c.strap).name}</p>
-        </div>
-        <span class="preset-price">${money(priceOf(c))}</span>
-      </div>
-      <div class="preset-actions">
-        <button class="btn btn-ghost btn-sm" data-preset="${i}">Personalizar</button>
-        <button class="btn btn-primary btn-sm" data-quick="${i}">Añadir</button>
-      </div>
-    </article>`;
-  }).join('');
-}
-
-$('#presets').addEventListener('click', e => {
-  const b = e.target.closest('button');
-  if (!b) return;
-  if (b.dataset.preset !== undefined) {
-    const p = PRESETS[+b.dataset.preset];
-    state = { ...p.cfg, acc: [...p.cfg.acc], monogram: '', name: p.name };
-    $('#monogram').value = '';
-    renderConfig(true);
-    $('#taller').scrollIntoView({ behavior: 'smooth' });
-  } else if (b.dataset.quick !== undefined) {
-    const p = PRESETS[+b.dataset.quick];
-    addToCart({ ...p.cfg, acc: [...p.cfg.acc], monogram: '', name: p.name });
-  }
-});
-
-// ---------- Configurador ----------
-function optCard(group, item, active, thumb) {
-  return `<button class="opt ${active ? 'on' : ''}" data-group="${group}" data-value="${item.id}" aria-pressed="${active}">
-    ${thumb ? `<span class="opt-thumb">${thumb}</span>` : ''}
-    <span class="opt-name">${item.name}</span>
-    ${item.desc ? `<span class="opt-desc">${item.desc}</span>` : ''}
-    ${item.price !== undefined ? `<span class="opt-price">${item.price ? '+' + money(item.price) : 'Incluido'}</span>` : ''}
-  </button>`;
-}
-
-function renderOptions() {
-  $('#optModel').innerHTML = MODELS.map(m => optCard('model', { ...m, price: undefined },state.model === m.id, renderBag({ ...state, model: m.id, acc: [], monogram: '' }))).join('');
-
-  $('#optYarn').innerHTML = YARNS.map(y => {
-    const sw = `<svg viewBox="0 0 60 60"><defs>${texturePattern(y.id, 'yt-' + y.id)}</defs><rect width="60" height="60" fill="${hexOf(state.color)}"/><rect width="60" height="60" fill="url(#yt-${y.id})"/></svg>`;
-    return optCard('yarn', y, state.yarn === y.id, sw);
-  }).join('');
-
-  const sw = (group, cur) => COLORS.map(c => `<button class="sw ${cur === c.id ? 'on' : ''}" data-group="${group}" data-value="${c.id}" style="--c:${c.hex}" title="${c.name}" aria-label="${c.name}" aria-pressed="${cur === c.id}"></button>`).join('');
-  $('#optColor').innerHTML = sw('color', state.color);
-  $('#optColor2').innerHTML = sw('color2', state.color2);
-  $('#colorName').textContent = byId(COLORS, state.color).name;
-  $('#color2Name').textContent = byId(COLORS, state.color2).name;
-
-  $('#optPattern').innerHTML = PATTERNS.map(p => {
-    const mini = renderPatternChip(p.id);
-    return `<button class="chip ${state.pattern === p.id ? 'on' : ''}" data-group="pattern" data-value="${p.id}" aria-pressed="${state.pattern === p.id}">${mini}<span>${p.name}</span></button>`;
-  }).join('');
-
-  $('#optStrap').innerHTML = STRAPS.map(s => optCard('strap', s, state.strap === s.id, renderBag({ ...state, strap: s.id, acc: [], monogram: '' }))).join('');
-
-  $('#optAcc').innerHTML = ACCESSORIES.map(a => {
-    const on = state.acc.includes(a.id);
-    return `<button class="acc ${on ? 'on' : ''}" data-group="acc" data-value="${a.id}" aria-pressed="${on}">
-      <span class="acc-ico">${a.icon}</span><span class="acc-name">${a.name}</span><span class="opt-price">+${money(a.price)}</span><span class="tick">✓</span>
-    </button>`;
-  }).join('');
-}
-
-function renderPatternChip(id) {
-  const base = hexOf(state.color), sec = hexOf(state.color2);
-  const g = { mono: [20, 26] };
-  const d = designLayer({ pattern: id }, 'pc-' + id + '-', base, sec, g);
-  return `<svg viewBox="0 0 40 40" class="chip-art"><defs>${d.defs}</defs><g transform="scale(.4)"><rect width="100" height="100" fill="${base}"/>${d.layer.replace(/height="(220|200)"/, 'height="100"').replace(/y="130"/, 'y="0"')}</g></svg>`;
-}
-
-function renderPreview(animate) {
-  $('#stage').innerHTML = renderBag(state, { swing: true }) +
-    `<div class="lens"><div class="lens-in">${renderBag(state)}</div></div><span class="lens-hint">🔍 Pasa el cursor para ver el tejido</span>`;
-  if (animate) {
-    const g = $('#stage .bag-swing');
-    g.classList.remove('wiggle');
-    void g.getBoundingClientRect();
-    g.classList.add('wiggle');
-  }
-  $('#price').textContent = money(priceOf(state));
-  const d = daysOf(state);
-  $('#days').textContent = `Lista en ${d}–${d + 2} días`;
-  $('#designName').textContent = state.name || 'Diseño personalizado';
-
-  const accNames = state.acc.map(id => byId(ACCESSORIES, id).name);
-  const rows = [
-    ['Modelo', byId(MODELS, state.model).name],
-    ['Hilo', byId(YARNS, state.yarn).name],
-    ['Colores', `<i class="dot" style="--c:${hexOf(state.color)}"></i>${byId(COLORS, state.color).name} <i class="dot" style="--c:${hexOf(state.color2)}"></i>${byId(COLORS, state.color2).name}`],
-    ['Patrón', byId(PATTERNS, state.pattern).name],
-    ['Correa', byId(STRAPS, state.strap).name],
-    ['Extras', accNames.length || state.monogram ? [...accNames, state.monogram ? `Iniciales “${escapeXml(state.monogram)}”` : ''].filter(Boolean).join(', ') : 'Ninguno'],
-  ];
-  $('#summary').innerHTML = rows.map(([k, v]) => `<li><span>${k}</span><b>${v}</b></li>`).join('');
-
-  $('#mbarArt').innerHTML = renderBag(state);
-  $('#mbarPrice').textContent = money(priceOf(state));
-  $('#mbarName').textContent = state.name || 'Diseño personalizado';
-}
-
-// Barra flotante en móvil: aparece cuando la vista previa sale de pantalla dentro del taller
-const seen = new Map();
-const io = new IntersectionObserver(entries => {
-  for (const en of entries) seen.set(en.target, en.isIntersecting);
-  document.body.classList.toggle('show-mbar', seen.get($('.steps')) && !seen.get($('#stage')));
-});
-io.observe($('#stage'));
-io.observe($('.steps'));
-$('#mbarArt').addEventListener('click', () => $('#stage').scrollIntoView({ behavior: 'smooth', block: 'center' }));
-$('#mbarAdd').addEventListener('click', () => $('#addCart').click());
-
-// Lupa sobre la vista previa
-const ZOOM = 3;
-$('#stage').addEventListener('pointermove', e => {
-  if (e.pointerType === 'touch') return;
-  const stage = $('#stage'), lens = stage.querySelector('.lens'), inner = stage.querySelector('.lens-in');
-  const svg = stage.querySelector('.bag-svg');
-  if (!lens || !svg) return;
-  const sr = stage.getBoundingClientRect(), br = svg.getBoundingClientRect();
-  const x = e.clientX - sr.left, y = e.clientY - sr.top;
-  lens.style.transform = `translate(${x - 70}px, ${y - 70}px)`;
-  inner.style.width = br.width * ZOOM + 'px';
-  inner.style.transform = `translate(${-(e.clientX - br.left) * ZOOM + 70}px, ${-(e.clientY - br.top) * ZOOM + 70}px)`;
-  stage.classList.add('zooming');
-});
-$('#stage').addEventListener('pointerleave', () => $('#stage').classList.remove('zooming'));
-
-function renderConfig(animate) {
-  renderOptions();
-  renderPreview(animate);
-}
-
-document.querySelector('.steps').addEventListener('click', e => {
-  const b = e.target.closest('[data-value]');
-  if (!b) return;
-  const { group, value } = b.dataset;
-  if (group === 'acc') {
-    state.acc = state.acc.includes(value) ? state.acc.filter(x => x !== value) : [...state.acc, value];
-  } else {
-    state[group] = value;
-  }
-  state.name = 'Diseño personalizado';
-  renderConfig(true);
-});
-
-$('#monogram').addEventListener('input', e => {
-  state.monogram = e.target.value.toUpperCase().replace(/[^A-ZÁÉÍÓÚÑ&.]/g, '').slice(0, 3);
-  e.target.value = state.monogram;
-  state.name = 'Diseño personalizado';
-  renderPreview(false);
-});
-
-$('#surprise').addEventListener('click', () => {
-  const color = pick(COLORS).id;
-  let color2 = pick(COLORS).id;
-  if (color2 === color) color2 = pick(COLORS).id;
-  const acc = ACCESSORIES.filter(() => Math.random() < 0.3).map(a => a.id);
-  state = {
-    model: pick(MODELS).id, yarn: pick(YARNS).id, color, color2,
-    pattern: pick(PATTERNS).id, strap: pick(STRAPS).id, acc,
-    monogram: state.monogram, name: pick(['Sorpresa del taller', 'Golpe de suerte', 'Hallazgo único', 'Inspiración del día']),
-  };
-  renderConfig(true);
-  confetti([hexOf(color), hexOf(color2), '#e2bd5c']);
-});
-
-$('#shareBtn').addEventListener('click', async () => {
-  const url = location.href.split('#')[0] + '#d=' + encodeCfg(state);
-  try {
-    await navigator.clipboard.writeText(url);
-    toast('Enlace del diseño copiado 🔗');
-  } catch {
-    history.replaceState(null, '', url);
-    toast('Enlace listo en la barra de direcciones');
-  }
-});
-
-$('#addCart').addEventListener('click', () => {
-  addToCart({ ...state, acc: [...state.acc] });
-  confetti([hexOf(state.color), hexOf(state.color2)]);
-});
-
-// ---------- Carrito ----------
-function addToCart(cfg) {
-  cart.push({ cfg, qty: 1, id: Date.now() + Math.random() });
-  saveCart();
-  renderCart();
+function addToOrder(item) {
+  const same = order.find(i => i.bag === item.bag && i.color === item.color);
+  if (same) same.qty++;
+  else order.push({ ...item, qty: 1, id: Date.now() + Math.random() });
+  saveOrder();
   const btn = $('#cartOpen');
-  btn.classList.remove('bump');
-  void btn.offsetWidth;
-  btn.classList.add('bump');
-  toast(`“${cfg.name || 'Tu diseño'}” añadida al carrito`);
+  btn.classList.remove('bump'); void btn.offsetWidth; btn.classList.add('bump');
+  toast(`“${item.name}” añadida a tu pedido`);
 }
 
-function saveCart() { store('trama-cart', cart); }
+function saveOrder() { store('lc-pedido', order); renderOrder(); }
 
-function renderCart() {
-  const count = cart.reduce((n, i) => n + i.qty, 0);
+function renderOrder() {
+  const count = order.reduce((n, i) => n + i.qty, 0);
   $('#cartCount').textContent = count;
   $('#cartCount').classList.toggle('show', count > 0);
-  const total = cart.reduce((n, i) => n + priceOf(i.cfg) * i.qty, 0);
-  $('#cartTotal').textContent = money(total);
-  $('#checkout').disabled = !cart.length;
-  $('#cartItems').innerHTML = cart.length ? cart.map(i => `
-    <div class="ci">
-      <div class="ci-art">${renderBag(i.cfg)}</div>
+  $('#checkout').disabled = !order.length;
+  $('#cartItems').innerHTML = order.length ? order.map(i => {
+    const c = i.color && byId(COLORS, i.color);
+    return `<div class="ci">
+      <img class="ci-art" src="${esc(i.thumb)}" alt="">
       <div class="ci-info">
-        <b>${escapeXml(i.cfg.name || 'Diseño personalizado')}</b>
-        <span class="muted">${byId(MODELS, i.cfg.model).name} · ${byId(YARNS, i.cfg.yarn).name} · ${byId(COLORS, i.cfg.color).name}</span>
+        <b>${esc(i.name)}</b>
+        <span class="muted">${c ? `<i class="dot" style="--c:${c.hex}"></i>En ${esc(c.name)} (simulación)` : 'Color original'}</span>
         <div class="qty">
           <button data-dec="${i.id}" aria-label="Quitar una">−</button><span>${i.qty}</span><button data-inc="${i.id}" aria-label="Añadir una">+</button>
-          <button class="link" data-del="${i.id}">Eliminar</button>
+          <button class="link" data-del="${i.id}">Quitar</button>
         </div>
       </div>
-      <span class="ci-price">${money(priceOf(i.cfg) * i.qty)}</span>
-    </div>`).join('') : `<div class="empty"><p>Tu carrito está vacío.</p><p class="muted">Diseña una bolsa en el taller y aparecerá aquí.</p></div>`;
+    </div>`;
+  }).join('') : `<div class="empty"><p>Tu pedido está vacío.</p><p class="muted">Elige una bolsa en el estudio y aparecerá aquí.</p></div>`;
 }
 
 $('#cartItems').addEventListener('click', e => {
   const b = e.target.closest('button');
   if (!b) return;
-  const find = id => cart.find(i => String(i.id) === id);
+  const find = id => order.find(i => String(i.id) === id);
   if (b.dataset.inc) find(b.dataset.inc).qty++;
-  if (b.dataset.dec) { const it = find(b.dataset.dec); it.qty--; if (!it.qty) cart = cart.filter(x => x !== it); }
-  if (b.dataset.del) cart = cart.filter(x => String(x.id) !== b.dataset.del);
-  saveCart();
-  renderCart();
+  if (b.dataset.dec) { const it = find(b.dataset.dec); it.qty--; if (!it.qty) order = order.filter(x => x !== it); }
+  if (b.dataset.del) order = order.filter(x => String(x.id) !== b.dataset.del);
+  saveOrder();
 });
 
 const openCart = open => document.body.classList.toggle('cart-open', open);
@@ -299,28 +91,75 @@ $('#scrim').addEventListener('click', () => openCart(false));
 document.addEventListener('keydown', e => { if (e.key === 'Escape') openCart(false); });
 
 $('#checkout').addEventListener('click', () => {
-  const n = cart.reduce((s, i) => s + i.qty, 0);
-  cart = [];
-  saveCart();
-  renderCart();
+  order = [];
+  saveOrder();
   openCart(false);
-  confetti(COLORS.map(c => c.hex));
-  toast(`¡Pedido simulado de ${n} bolsa${n > 1 ? 's' : ''}! (esto es una demo)`);
+  confetti(['#0a62b4', '#00a3e6', '#ffffff', '#9ca1a8']);
+  toast('Esto es una demostración: todavía no se envían pedidos reales');
 });
 
-// ---------- Arranque ----------
-(function init() {
-  const m = location.hash.match(/#d=(.+)/);
-  const shared = m && decodeCfg(m[1]);
-  if (shared && GEO[shared.model]) {
-    state = { ...shared, name: 'Diseño compartido' };
-    $('#monogram').value = state.monogram;
+renderOrder();
+
+// ---------- Efectos al bajar por la página ----------
+// Los elementos .reveal aparecen al entrar en pantalla; las ventanas abren sus postigos.
+const revealer = new IntersectionObserver(entries => {
+  for (const en of entries) if (en.isIntersecting) { en.target.classList.add('in'); revealer.unobserve(en.target); }
+}, { threshold: .25 });
+document.querySelectorAll('.reveal, .window').forEach(el => revealer.observe(el));
+
+// El hilo del proceso: se teje mientras bajas y va "cosiendo" cada paso.
+(function thread() {
+  const list = $('.process'), svg = $('#thread');
+  if (!list || !svg) return;
+  const steps = [...list.children];
+  let len = 1;
+
+  function layout() {
+    const box = list.getBoundingClientRect();
+    const pts = steps.map(li => {
+      const r = li.querySelector('.pn').getBoundingClientRect();
+      return [r.left - box.left + r.width / 2, r.top - box.top + r.height / 2];
+    });
+    const vertical = pts.length > 1 && Math.abs(pts[1][0] - pts[0][0]) < 20;
+    let d;
+    if (vertical) {
+      // Una columna: el hilo baja por el margen izquierdo, pasando por cada número como un botón cosido.
+      const x = pts[0][0];
+      d = `M${x - 18},${pts[0][1] - 70} Q${x},${pts[0][1] - 50} ${x},${pts[0][1]}`;
+      for (let i = 1; i < pts.length; i++) {
+        const y0 = pts[i - 1][1], y1 = pts[i][1], m = (y0 + y1) / 2;
+        d += ` C${x + 16},${m - 20} ${x - 16},${m + 20} ${x},${y1}`;
+      }
+    } else {
+      // Varias columnas: arcos por encima de las tarjetas, de número en número.
+      d = `M${pts[0][0] - 40},${pts[0][1] - 110} Q${pts[0][0] - 10},${pts[0][1] - 90} ${pts[0][0]},${pts[0][1]}`;
+      for (let i = 1; i < pts.length; i++) {
+        const [x0, y0] = pts[i - 1], [x1, y1] = pts[i];
+        const lift = Math.min(y0, y1) - 125;
+        d += ` C${x0 + 30},${lift} ${x1 - 30},${lift} ${x1},${y1}`;
+      }
+    }
+    svg.setAttribute('viewBox', `0 0 ${box.width} ${box.height}`);
+    svg.querySelectorAll('path').forEach(p => p.setAttribute('d', d));
+    len = svg.querySelector('.draw').getTotalLength();
+    // Posición de cada número a lo largo del hilo, para "encender" el paso cuando llega.
+    steps.forEach((li, i) => { li.dataset.at = i / Math.max(1, steps.length - 1) * .92 + .04; });
+    tick();
   }
-  cart = (store('trama-cart') || []).filter(i => i && i.cfg && GEO[i.cfg.model]);
-  renderPresets();
-  renderConfig(false);
-  renderCart();
-  if (shared) setTimeout(() => $('#taller').scrollIntoView(), 50);
+
+  function tick() {
+    const r = list.getBoundingClientRect(), vh = innerHeight;
+    const p = still ? 1 : Math.min(1, Math.max(0, (vh * .85 - r.top) / (r.height + vh * .25)));
+    const draw = svg.querySelector('.draw');
+    draw.style.strokeDasharray = len;
+    draw.style.strokeDashoffset = len * (1 - p);
+    steps.forEach(li => li.classList.toggle('on', p >= +li.dataset.at));
+  }
+
+  addEventListener('scroll', tick, { passive: true });
+  addEventListener('resize', layout);
+  document.fonts?.ready.then(layout);
+  layout();
 })();
 
 // ---------- App instalable ----------
