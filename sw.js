@@ -1,9 +1,9 @@
 // Service worker: guarda la tienda para que abra sin internet.
-const CACHE = 'lc-v5';
+const CACHE = 'lc-v6';
 const SHELL = ['./', 'index.html', 'styles.css', 'colores.js', 'luz.js', 'app.js', 'estudio.js', 'prototipo/recolor.js', 'manifest.webmanifest', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/mark-96.png', 'img/logo.jpg'];
 
 self.addEventListener('install', e => {
-  e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).then(() => self.skipWaiting()));
+  e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL.map(u => new Request(u, { cache: 'reload' })))).then(() => self.skipWaiting()));
 });
 
 self.addEventListener('activate', e => {
@@ -11,10 +11,11 @@ self.addEventListener('activate', e => {
 });
 
 // Red primero (para ver siempre la última versión) y, sin conexión, lo guardado.
+// 'no-cache' obliga a preguntar al servidor: si nada cambió, responde rápido sin bajar todo.
 self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET' || !e.request.url.startsWith(self.location.origin)) return;
   e.respondWith(
-    fetch(e.request)
+    fetch(e.request, { cache: 'no-cache' })
       .then(res => {
         const copy = res.clone();
         caches.open(CACHE).then(c => c.put(e.request, copy));
